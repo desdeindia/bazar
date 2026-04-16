@@ -403,11 +403,11 @@
 // ─── 1. TU NÚMERO DE WHATSAPP ─────────────────────────────
 //     Formato: código de país + número, sin +, sin espacios
 //     Ejemplo Chile: 56912345678
-const WA_NUMBER = "56988293845";
+const WA_NUMBER = "56912345678";
 
 // ─── 2. NOMBRE DE TU TIENDA ───────────────────────────────
-const NOMBRE_TIENDA = "Bazar Indio";
-const SUBTITULO = "Ropa de mujer · Ropa seleccionada";
+const NOMBRE_TIENDA = "Mi Tienda";
+const SUBTITULO = "Ropa de mujer · Nueva colección";
 
 // ─── 3. TUS PRODUCTOS ─────────────────────────────────────
 //     Para cada prenda, agrega un bloque como este:
@@ -453,6 +453,85 @@ const PRODUCTOS = [
       "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80",
       "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600&q=80"
     ]
+  },
+  {
+    id: 3,
+    name: "Pantalón lino palazzo",
+    cat: "Pantalón",
+    tallas: ["S","M","L","XL"],
+    material: "100% Lino",
+    precio: 22990,
+    desc: "Corte ancho y holgado, muy cómodo. Disponible en beige y negro.",
+    imgs: [
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
+      "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&q=80"
+    ]
+  },
+  {
+    id: 4,
+    name: "Falda midi plisada",
+    cat: "Falda",
+    tallas: ["XS","S","M"],
+    material: "Poliéster satinado",
+    precio: 18990,
+    desc: "Falda midi con pliegues finos. Muy versátil, combina con blusas o poleras.",
+    imgs: [
+      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600&q=80",
+      "https://images.unsplash.com/photo-1557428894-56bcc97113fe?w=600&q=80",
+      "https://images.unsplash.com/photo-1577900232427-18219b9166a0?w=600&q=80"
+    ]
+  },
+  {
+    id: 5,
+    name: "Chaqueta oversize beige",
+    cat: "Chaqueta",
+    tallas: ["S","M","L"],
+    material: "80% Lana, 20% Poliamida",
+    precio: 42990,
+    desc: "Chaqueta de paño cálida y estructurada. Toque de elegancia para cualquier look.",
+    imgs: [
+      "https://images.unsplash.com/photo-1548624313-0396a8faa74f?w=600&q=80",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80"
+    ]
+  },
+  {
+    id: 6,
+    name: "Vestido negro cóctel",
+    cat: "Vestido",
+    tallas: ["XS","S","M","L","XL"],
+    material: "Crepe de poliéster",
+    precio: 32990,
+    desc: "El infaltable vestido negro. Corte que favorece todas las figuras.",
+    imgs: [
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80"
+    ]
+  },
+  {
+    id: 7,
+    name: "Blusa bordada bohemia",
+    cat: "Blusa",
+    tallas: ["S","M","L"],
+    material: "100% Algodón",
+    precio: 17990,
+    desc: "Blusa con detalles bordados a mano. Estilo boho chic.",
+    imgs: [
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80",
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80"
+    ]
+  },
+  {
+    id: 8,
+    name: "Pantalón cuero sintético",
+    cat: "Pantalón",
+    tallas: ["XS","S","M"],
+    material: "PU, Poliéster",
+    precio: 28990,
+    desc: "Pantalón de cuero sintético con corte skinny. Estilo urbano y moderno.",
+    imgs: [
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80",
+      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80"
+    ]
   }
 ];
 // ─── FIN CONFIGURACIÓN ────────────────────────────────────
@@ -473,7 +552,7 @@ const PRODUCTOS = [
 <div class="filters-bar" id="filtersBar">
   <div class="filter-group">
     <span class="filter-label">Categoría</span>
-    <button class="chip active" data-filter=cat data-val="all">Todas</button>
+    <button class="chip active" data-filter="cat" data-val="all">Todas</button>
   </div>
   <div class="sep"></div>
   <div class="filter-group">
@@ -524,7 +603,7 @@ const tallas = ["XS","S","M","L","XL","XXL"].filter(t => PRODUCTOS.some(p => p.t
 const filterGroups = document.querySelectorAll(".filter-group");
 cats.forEach(c => {
   const b = document.createElement("button");
-  b.className = "chip"; b.dataset.filter = cat; b.dataset.val = c;
+  b.className = "chip"; b.dataset.filter = "cat"; b.dataset.val = c;
   b.textContent = c + "s";
   filterGroups[0].appendChild(b);
 });
@@ -668,7 +747,7 @@ document.getElementById("filtersBar").addEventListener("click", function(e) {
   const f = chip.dataset.filter;
   document.querySelectorAll(`.chip[data-filter="${f}"]`).forEach(c => c.classList.remove("active"));
   chip.classList.add("active");
-  if (f === cat) activeCat = chip.dataset.val;
+  if (f === "cat") activeCat = chip.dataset.val;
   else activeTalla = chip.dataset.val;
   renderGrid();
 });
