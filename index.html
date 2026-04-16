@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Catálogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rosa: #c9636a;
+    --rosa-claro: #f5e8e9;
+    --rosa-medio: #e8c4c6;
+    --texto: #1a1a1a;
+    --texto-suave: #6b6b6b;
+    --borde: #e8e0de;
+    --fondo: #faf8f7;
+    --blanco: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--blanco);
+    border-bottom: 1px solid var(--borde);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--texto);
+  }
+  .logo em { color: var(--rosa); font-style: italic; }
+  .header-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--rosa-claro);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--rosa-medio);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+  }
+
+  /* ── FILTERS ── */
+  .filters-bar {
+    background: var(--blanco);
+    border-bottom: 1px solid var(--borde);
+    padding: 0.85rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    position: sticky;
+    top: 65px;
+    z-index: 40;
+  }
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin-right: 2px;
+  }
+  .chip {
+    font-size: 0.75rem;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--borde);
+    background: transparent;
+    color: var(--texto-suave);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chip:hover { border-color: var(--rosa); color: var(--rosa); }
+  .chip.active { background: var(--rosa); border-color: var(--rosa); color: white; }
+  .sep { width: 1px; height: 20px; background: var(--borde); margin: 0 6px; }
+
+  /* ── COUNT ── */
+  .count-bar {
+    padding: 0.75rem 2rem;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0 2rem 3rem;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-color: var(--rosa-medio);
+  }
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--rosa-claro);
+    overflow: hidden;
+  }
+  .card-img-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  .card-img-wrap img.visible { opacity: 1; }
+  .img-nav-btns {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 6px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    pointer-events: none;
+  }
+  .card:hover .img-nav-btns { opacity: 1; pointer-events: all; }
+  .nav-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--texto);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dots {
+    position: absolute;
+    bottom: 8px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+  .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.15s;
+    border: none;
+  }
+  .dot.active { background: white; }
+  .card-body { padding: 0.9rem 1rem; }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 6px; }
+  .badge {
+    font-size: 0.68rem;
+    padding: 2px 9px;
+    border-radius: 10px;
+    letter-spacing: 0.03em;
+  }
+  .badge-cat { background: var(--rosa-claro); color: var(--rosa); }
+  .badge-talla { background: var(--fondo); color: var(--texto-suave); border: 1px solid var(--borde); }
+  .card-material { font-size: 0.75rem; color: var(--texto-suave); margin-bottom: 10px; }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .price {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .btn-pedir {
+    font-size: 0.72rem;
+    padding: 5px 11px;
+    border-radius: 20px;
+    background: var(--rosa-claro);
+    border: 1px solid var(--rosa);
+    color: var(--rosa);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; gap: 4px;
+    transition: background 0.15s;
+  }
+  .btn-pedir:hover { background: var(--rosa-medio); }
+
+  /* ── MODAL ── */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.6);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--blanco);
+    border-radius: 16px;
+    max-width: 540px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid var(--borde);
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+  }
+  .modal-img-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--rosa-claro);
+    overflow: hidden;
+  }
+  .modal-img-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  .modal-img-wrap img.visible { opacity: 1; }
+  .modal-nav-btn {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid var(--borde);
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-nav-btn.prev { left: 10px; }
+  .modal-nav-btn.next { right: 10px; }
+  .modal-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  .modal-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .modal-dot.active { background: white; }
+  .modal-info { padding: 1.5rem; }
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+  .modal-price {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--rosa);
+    margin-bottom: 1rem;
+  }
+  .modal-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .modal-detail {
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+  .modal-detail strong { color: var(--texto); font-weight: 500; }
+  .btn-wa-full {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    background: #25D366;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn-wa-full:hover { background: #1ebe5d; }
+
+  /* ── EMPTY ── */
+  .empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--texto-suave);
+  }
+  .empty p { font-size: 1.1rem; margin-bottom: 0.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: var(--texto-suave);
+    border-top: 1px solid var(--borde);
+    background: var(--blanco);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 1rem; }
+    .filters-bar { padding: 0.75rem 1rem; top: 60px; }
+    .grid { padding: 0 1rem 2rem; gap: 14px; }
+    .count-bar { padding: 0.6rem 1rem; }
+    .hero { padding: 2rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     CONFIGURACIÓN — edita aquí tu info
+══════════════════════════════════════ -->
+<script>
+// ─── 1. TU NÚMERO DE WHATSAPP ─────────────────────────────
+//     Formato: código de país + número, sin +, sin espacios
+//     Ejemplo Chile: 56912345678
+const WA_NUMBER = "56912345678";
+
+// ─── 2. NOMBRE DE TU TIENDA ───────────────────────────────
+const NOMBRE_TIENDA = "Mi Tienda";
+const SUBTITULO = "Ropa de mujer · Nueva colección";
+
+// ─── 3. TUS PRODUCTOS ─────────────────────────────────────
+//     Para cada prenda, agrega un bloque como este:
+//
+//     {
+//       id: 1,                        ← número único
+//       name: "Nombre de la prenda",
+//       cat: "Vestido",               ← Vestido | Blusa | Pantalón | Falda | Chaqueta | Otro
+//       tallas: ["S","M","L"],        ← las tallas disponibles
+//       material: "100% Algodón",
+//       precio: 24990,                ← sin puntos ni $ (solo números)
+//       desc: "Descripción breve.",   ← opcional
+//       imgs: [
+//         "fotos/prenda1-a.jpg",      ← rutas relativas a tus fotos
+//         "fotos/prenda1-b.jpg"
+//       ]
+//     },
+//
+const PRODUCTOS = [
+  {
+    id: 1,
+    name: "Vestido floral verano",
+    cat: "Vestido",
+    tallas: ["S","M","L"],
+    material: "100% Viscosa",
+    precio: 24990,
+    desc: "Vestido liviano con estampado floral. Ideal para días de calor.",
+    imgs: [
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80",
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&q=80",
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80"
+    ]
+  },
+  {
+    id: 2,
+    name: "Blusa seda manga larga",
+    cat: "Blusa",
+    tallas: ["XS","S","M","L"],
+    material: "95% Poliéster, 5% Elastano",
+    precio: 15990,
+    desc: "Blusa elegante con caída suave. Perfecta para la oficina o salidas.",
+    imgs: [
+      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80",
+      "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600&q=80"
+    ]
+  },
+  {
+    id: 3,
+    name: "Pantalón lino palazzo",
+    cat: "Pantalón",
+    tallas: ["S","M","L","XL"],
+    material: "100% Lino",
+    precio: 22990,
+    desc: "Corte ancho y holgado, muy cómodo. Disponible en beige y negro.",
+    imgs: [
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
+      "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&q=80"
+    ]
+  },
+  {
+    id: 4,
+    name: "Falda midi plisada",
+    cat: "Falda",
+    tallas: ["XS","S","M"],
+    material: "Poliéster satinado",
+    precio: 18990,
+    desc: "Falda midi con pliegues finos. Muy versátil, combina con blusas o poleras.",
+    imgs: [
+      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600&q=80",
+      "https://images.unsplash.com/photo-1557428894-56bcc97113fe?w=600&q=80",
+      "https://images.unsplash.com/photo-1577900232427-18219b9166a0?w=600&q=80"
+    ]
+  },
+  {
+    id: 5,
+    name: "Chaqueta oversize beige",
+    cat: "Chaqueta",
+    tallas: ["S","M","L"],
+    material: "80% Lana, 20% Poliamida",
+    precio: 42990,
+    desc: "Chaqueta de paño cálida y estructurada. Toque de elegancia para cualquier look.",
+    imgs: [
+      "https://images.unsplash.com/photo-1548624313-0396a8faa74f?w=600&q=80",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80"
+    ]
+  },
+  {
+    id: 6,
+    name: "Vestido negro cóctel",
+    cat: "Vestido",
+    tallas: ["XS","S","M","L","XL"],
+    material: "Crepe de poliéster",
+    precio: 32990,
+    desc: "El infaltable vestido negro. Corte que favorece todas las figuras.",
+    imgs: [
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80"
+    ]
+  },
+  {
+    id: 7,
+    name: "Blusa bordada bohemia",
+    cat: "Blusa",
+    tallas: ["S","M","L"],
+    material: "100% Algodón",
+    precio: 17990,
+    desc: "Blusa con detalles bordados a mano. Estilo boho chic.",
+    imgs: [
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80",
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80"
+    ]
+  },
+  {
+    id: 8,
+    name: "Pantalón cuero sintético",
+    cat: "Pantalón",
+    tallas: ["XS","S","M"],
+    material: "PU, Poliéster",
+    precio: 28990,
+    desc: "Pantalón de cuero sintético con corte skinny. Estilo urbano y moderno.",
+    imgs: [
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80",
+      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80"
+    ]
+  }
+];
+// ─── FIN CONFIGURACIÓN ────────────────────────────────────
+</script>
+
+<!-- ═══════════ HTML ═══════════ -->
+
+<header>
+  <div class="logo" id="logoEl"></div>
+  <div class="header-sub" id="subEl"></div>
+</header>
+
+<div class="hero">
+  <h1 id="heroTitle"></h1>
+  <p>Selecciona cualquier prenda para ver detalles y pedir por WhatsApp</p>
+</div>
+
+<div class="filters-bar" id="filtersBar">
+  <div class="filter-group">
+    <span class="filter-label">Categoría</span>
+    <button class="chip active" data-filter="cat" data-val="all">Todas</button>
+  </div>
+  <div class="sep"></div>
+  <div class="filter-group">
+    <span class="filter-label">Talla</span>
+    <button class="chip active" data-filter="talla" data-val="all">Todas</button>
+  </div>
+</div>
+
+<div class="count-bar" id="countBar"></div>
+<div class="grid" id="grid"></div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img-wrap" id="mImgWrap">
+      <button class="modal-nav-btn prev" onclick="mNav(-1)">&#8249;</button>
+      <button class="modal-nav-btn next" onclick="mNav(1)">&#8250;</button>
+      <div class="modal-dots" id="mDots"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-title" id="mTitle"></div>
+      <div class="modal-price" id="mPrice"></div>
+      <div class="modal-badges" id="mBadges"></div>
+      <div class="modal-detail" id="mDetail"></div>
+      <button class="btn-wa-full" id="mBtnWa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.524 5.855L0 24l6.322-1.498A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.497-5.19-1.367l-.372-.22-3.753.889.923-3.64-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Pedir por WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer id="footerEl"></footer>
+
+<script>
+// ── Aplicar nombre de tienda ──
+document.getElementById("logoEl").innerHTML = NOMBRE_TIENDA.replace(/(\s)(\S+)$/, '$1<em>$2</em>');
+document.getElementById("subEl").textContent = SUBTITULO;
+document.getElementById("heroTitle").textContent = "Nueva colección";
+document.getElementById("footerEl").textContent = "© " + new Date().getFullYear() + " " + NOMBRE_TIENDA + " · Hecho con ♥";
+document.title = NOMBRE_TIENDA + " · Catálogo";
+
+// ── Detectar categorías y tallas únicas ──
+const cats = [...new Set(PRODUCTOS.map(p => p.cat))];
+const tallas = ["XS","S","M","L","XL","XXL"].filter(t => PRODUCTOS.some(p => p.tallas.includes(t)));
+
+const filterGroups = document.querySelectorAll(".filter-group");
+cats.forEach(c => {
+  const b = document.createElement("button");
+  b.className = "chip"; b.dataset.filter = "cat"; b.dataset.val = c;
+  b.textContent = c + "s";
+  filterGroups[0].appendChild(b);
+});
+tallas.forEach(t => {
+  const b = document.createElement("button");
+  b.className = "chip"; b.dataset.filter = "talla"; b.dataset.val = t;
+  b.textContent = t;
+  filterGroups[1].appendChild(b);
+});
+
+// ── Estado ──
+let activeCat = "all", activeTalla = "all";
+let curProduct = null, mImgIdx = 0;
+const cardState = {};
+
+// ── Formato precio ──
+function fmt(n) { return "$" + n.toLocaleString("es-CL"); }
+
+// ── Render grid ──
+function renderGrid() {
+  const filtered = PRODUCTOS.filter(p => {
+    const okC = activeCat === "all" || p.cat === activeCat;
+    const okT = activeTalla === "all" || p.tallas.includes(activeTalla);
+    return okC && okT;
+  });
+  document.getElementById("countBar").textContent =
+    filtered.length + " prenda" + (filtered.length !== 1 ? "s" : "") + " encontrada" + (filtered.length !== 1 ? "s" : "");
+
+  const g = document.getElementById("grid");
+  if (!filtered.length) {
+    g.innerHTML = '<div class="empty"><p>No hay prendas con esos filtros.</p><span>Prueba con otra combinación.</span></div>';
+    return;
+  }
+
+  g.innerHTML = filtered.map(p => {
+    const idx = cardState[p.id] || 0;
+    return `
+      <div class="card" data-id="${p.id}">
+        <div class="card-img-wrap" onclick="openModal(${p.id})">
+          ${p.imgs.map((src, i) => `<img src="${src}" alt="${p.name}" class="${i === idx ? 'visible' : ''}" data-card-img="${p.id}-${i}">`).join("")}
+          ${p.imgs.length > 1 ? `
+          <div class="img-nav-btns">
+            <button class="nav-btn" onclick="event.stopPropagation();cardNav(${p.id},-1)">&#8249;</button>
+            <button class="nav-btn" onclick="event.stopPropagation();cardNav(${p.id},1)">&#8250;</button>
+          </div>
+          <div class="dots">
+            ${p.imgs.map((_, i) => `<button class="dot${i === idx ? ' active' : ''}" onclick="event.stopPropagation();cardGo(${p.id},${i})"></button>`).join("")}
+          </div>` : ""}
+        </div>
+        <div class="card-body" onclick="openModal(${p.id})">
+          <div class="card-name">${p.name}</div>
+          <div class="badges">
+            <span class="badge badge-cat">${p.cat}</span>
+            ${p.tallas.map(t => `<span class="badge badge-talla">${t}</span>`).join("")}
+          </div>
+          <div class="card-material">${p.material}</div>
+          <div class="card-footer">
+            <span class="price">${fmt(p.precio)}</span>
+            <button class="btn-pedir" onclick="event.stopPropagation();sendWA(${p.id})">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.524 5.855L0 24l6.322-1.498A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.497-5.19-1.367l-.372-.22-3.753.889.923-3.64-.243-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              Pedir
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function cardNav(id, dir) {
+  const p = PRODUCTOS.find(x => x.id === id);
+  const cur = cardState[id] || 0;
+  cardGo(id, (cur + dir + p.imgs.length) % p.imgs.length);
+}
+function cardGo(id, i) {
+  const p = PRODUCTOS.find(x => x.id === id);
+  const prev = cardState[id] || 0;
+  cardState[id] = i;
+  document.querySelectorAll(`[data-card-img="${id}-${prev}"]`).forEach(el => el.classList.remove("visible"));
+  document.querySelectorAll(`[data-card-img="${id}-${i}"]`).forEach(el => el.classList.add("visible"));
+  document.querySelectorAll(`.card[data-id="${id}"] .dot`).forEach((d, idx) => d.classList.toggle("active", idx === i));
+}
+
+// ── Modal ──
+function openModal(id) {
+  curProduct = PRODUCTOS.find(p => p.id === id);
+  mImgIdx = 0;
+  renderModal();
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function mNav(dir) {
+  mImgIdx = (mImgIdx + dir + curProduct.imgs.length) % curProduct.imgs.length;
+  renderModal();
+}
+function renderModal() {
+  const p = curProduct;
+  const wrap = document.getElementById("mImgWrap");
+  // Remove old imgs
+  wrap.querySelectorAll("img").forEach(el => el.remove());
+  // Add imgs
+  p.imgs.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = p.name;
+    if (i === mImgIdx) img.classList.add("visible");
+    wrap.insertBefore(img, wrap.querySelector(".modal-nav-btn.prev"));
+  });
+  // dots
+  document.getElementById("mDots").innerHTML = p.imgs.map((_, i) =>
+    `<button class="modal-dot${i === mImgIdx ? ' active' : ''}" onclick="mImgIdx=${i};renderModal()"></button>`
+  ).join("");
+  // nav visibility
+  wrap.querySelectorAll(".modal-nav-btn").forEach(b => b.style.display = p.imgs.length > 1 ? "" : "none");
+
+  document.getElementById("mTitle").textContent = p.name;
+  document.getElementById("mPrice").textContent = fmt(p.precio);
+  document.getElementById("mBadges").innerHTML =
+    `<span class="badge badge-cat">${p.cat}</span>` +
+    p.tallas.map(t => `<span class="badge badge-talla">${t}</span>`).join("");
+  document.getElementById("mDetail").innerHTML =
+    `<strong>Material:</strong> ${p.material}` +
+    (p.desc ? `<br><br>${p.desc}` : "");
+  document.getElementById("mBtnWa").onclick = () => sendWA(p.id);
+}
+
+// ── WhatsApp ──
+function sendWA(id) {
+  const p = PRODUCTOS.find(x => x.id === id);
+  const msg = `Hola! Me interesa esta prenda:\n\n*${p.name}*\nCategoría: ${p.cat}\nMaterial: ${p.material}\nTallas disponibles: ${p.tallas.join(", ")}\nPrecio: ${fmt(p.precio)}\n\n¿Está disponible?`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+// ── Filtros ──
+document.getElementById("filtersBar").addEventListener("click", function(e) {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  const f = chip.dataset.filter;
+  document.querySelectorAll(`.chip[data-filter="${f}"]`).forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  if (f === "cat") activeCat = chip.dataset.val;
+  else activeTalla = chip.dataset.val;
+  renderGrid();
+});
+
+// ── Cerrar modal al hacer clic afuera ──
+document.getElementById("overlay").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── Init ──
+renderGrid();
+</script>
+</body>
+</html>
