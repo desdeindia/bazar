@@ -403,7 +403,7 @@
 // ─── 1. TU NÚMERO DE WHATSAPP ─────────────────────────────
 //     Formato: código de país + número, sin +, sin espacios
 //     Ejemplo Chile: 56912345678
-const WA_NUMBER = "56912345678";
+const WA_NUMBER = "56988293845";
 
 // ─── 2. NOMBRE DE TU TIENDA ───────────────────────────────
 const NOMBRE_TIENDA = "Bazar Indio";
@@ -466,72 +466,503 @@ const PRODUCTOS = [
       "fotos/Blusa_M_3.2.1.png"
    ]
 },
-  {
-    id: 4,
-    name: "Falda midi plisada",
-    cat: "Falda",
-    tallas: ["XS","S","M"],
-    material: "Poliéster satinado",
-    precio: 18990,
-    desc: "Falda midi con pliegues finos. Muy versátil, combina con blusas o poleras.",
-    imgs: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600&q=80",
-      "https://images.unsplash.com/photo-1557428894-56bcc97113fe?w=600&q=80",
-      "https://images.unsplash.com/photo-1577900232427-18219b9166a0?w=600&q=80"
-    ]
-  },
-  {
-    id: 5,
-    name: "Chaqueta oversize beige",
-    cat: "Chaqueta",
-    tallas: ["S","M","L"],
-    material: "80% Lana, 20% Poliamida",
-    precio: 42990,
-    desc: "Chaqueta de paño cálida y estructurada. Toque de elegancia para cualquier look.",
-    imgs: [
-      "https://images.unsplash.com/photo-1548624313-0396a8faa74f?w=600&q=80",
-      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80"
-    ]
-  },
-  {
-    id: 6,
-    name: "Vestido negro cóctel",
-    cat: "Vestido",
-    tallas: ["XS","S","M","L","XL"],
-    material: "Crepe de poliéster",
-    precio: 32990,
-    desc: "El infaltable vestido negro. Corte que favorece todas las figuras.",
-    imgs: [
-      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80"
-    ]
-  },
-  {
-    id: 7,
-    name: "Blusa bordada bohemia",
-    cat: "Blusa",
-    tallas: ["S","M","L"],
-    material: "100% Algodón",
-    precio: 17990,
-    desc: "Blusa con detalles bordados a mano. Estilo boho chic.",
-    imgs: [
-      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80",
-      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80"
-    ]
-  },
-  {
-    id: 8,
-    name: "Pantalón cuero sintético",
-    cat: "Pantalón",
-    tallas: ["XS","S","M"],
-    material: "PU, Poliéster",
-    precio: 28990,
-    desc: "Pantalón de cuero sintético con corte skinny. Estilo urbano y moderno.",
-    imgs: [
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80",
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80"
-    ]
-  }
+ {
+   "id": 4,
+   "name": "Vestido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 15000,
+   "desc": "Vestido de verano de espalda abierta",
+   "imgs": [
+      "fotos/Camison_1.1.1.png",
+      "fotos/Camison_1.2.1.png"
+   ]
+},
+ {
+   "id": 5,
+   "name": "Vestido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 15000,
+   "desc": "Vestido de verano de espalda abierta",
+   "imgs": [
+      "fotos/Camison_2.1.1.png",
+      "fotos/Camison_2.2.1.png"
+   ]
+},
+ {
+   "id": 6,
+   "name": "Vestido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 15000,
+   "desc": "Vestido de verano de espalda abierta",
+   "imgs": [
+      "fotos/Camison_3.1.1.png",
+      "fotos/Camison_3.2.1.png"
+   ]
+},
+ {
+   "id": 7,
+   "name": "Vestido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 15000,
+   "desc": "Vestido de verano de espalda abierta",
+   "imgs": [
+      "fotos/Camison_4.1.1.png",
+      "fotos/Camison_4.2.1.png"
+   ]
+},
+ {
+   "id": 8,
+   "name": "Falda Envolvente Reversible",
+   "cat": "Bottoms",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Falda envolvente, reversible",
+   "imgs": [
+      "fotos/Falda_1.1.1.png",
+      "fotos/Falda_1.2.1.png"
+   ]
+},
+ {
+   "id": 9,
+   "name": "Falda Gitana",
+   "cat": "Bottoms",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Falda Gitana con abertura lateral",
+   "imgs": [
+      "fotos/Falda_2.1.1.png",
+      "fotos/Falda_2.2.1.png"
+   ]
+},
+ {
+   "id": 10,
+   "name": "Falda Gitana",
+   "cat": "Bottoms",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Falda Gitana con abertura lateral",
+   "imgs": [
+      "fotos/Falda_3.1.1.png"
+   ]
+},
+ {
+   "id": 11,
+   "name": "Kimono",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Kimono con lazo central y aperturas laterales",
+   "imgs": [
+      "fotos/Kimono_A_1.1.1.png",
+      "fotos/Kimono_A_1.2.0.png"
+   ]
+},
+ {
+   "id": 12,
+   "name": "Kimono",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Kimono con lazo central y aperturas laterales",
+   "imgs": [
+      "fotos/Kimono_A_2.1.1.png",
+      "fotos/Kimono_A_2.2.1.png"
+   ]
+},
+ {
+   "id": 13,
+   "name": "Kimono",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Kimono con lazo central y aperturas laterales",
+   "imgs": [
+      "fotos/Kimono_A_3.1.1.png",
+      "fotos/Kimono_A_3.2.1.png"
+   ]
+},
+ {
+   "id": 14,
+   "name": "Kimono",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Kimono con lazo central y aperturas laterales",
+   "imgs": [
+      "fotos/Kimono_A_4.1.1.png",
+      "fotos/Kimono_A_4.2.1.png"
+   ]
+},
+ {
+   "id": 15,
+   "name": "Túnica",
+   "cat": "Top",
+   "tallas": ["L"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Túnica larga con mangas acampanadas",
+   "imgs": [
+      "fotos/Kimono_L_4.1.1.png",
+      "fotos/Kimono_L_4.2.1.png"
+   ]
+},
+ {
+   "id": 16,
+   "name": "Túnica",
+   "cat": "Top",
+   "tallas": ["M"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Túnica larga con mangas acampanadas",
+   "imgs": [
+      "fotos/Kimono_M_1.1.1.png",
+      "fotos/Kimono_M_1.2.1.png"
+   ]
+},
+ {
+   "id": 17,
+   "name": "Túnica",
+   "cat": "Top",
+   "tallas": ["M"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Túnica larga con mangas acampanadas",
+   "imgs": [
+      "fotos/Kimono_M_3.1.1.png",
+      "fotos/Kimono_M_3.2.1.png"
+   ]
+},
+ {
+   "id": 18,
+   "name": "Túnica",
+   "cat": "Top",
+   "tallas": ["S"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Túnica larga con mangas acampanadas",
+   "imgs": [
+      "fotos/Kimono_S_2.1.1.png",
+      "fotos/Kimono_S_2.2.1.png"
+   ]
+},
+ {
+   "id": 19,
+   "name": "Kurta",
+   "cat": "Top",
+   "tallas": ["M"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Kurta India",
+   "imgs": [
+      "fotos/Kurta_M_2.1.1.png",
+      "fotos/Kurta_M_2.2.1.png"
+   ]
+},
+ {
+   "id": 20,
+   "name": "Kurta",
+   "cat": "Top",
+   "tallas": ["M"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Kurta India",
+   "imgs": [
+      "fotos/Kurta_M_3.1.1.png",
+      "fotos/Kurta_M_3.2.1.png"
+   ]
+},
+ {
+   "id": 21,
+   "name": "Kurta",
+   "cat": "Top",
+   "tallas": ["XL"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Kurta India",
+   "imgs": [
+      "fotos/Kurta_XL_1.1.1.png",
+      "fotos/Kurta_XL_1.2.1.png"
+   ]
+},
+ {
+   "id": 22,
+   "name": "Pantalón Envolvente Reversible",
+   "cat": "Bottoms",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 30000,
+   "desc": "Pantalón envolvente y reversible",
+   "imgs": [
+      "fotos/Pantalon_1.1.1.png",
+      "fotos/Pantalon_1.2.1.png",
+      "fotos/Pantalon_2.1.1.png",
+      "fotos/Pantalon_2.2.1.png"
+   ]
+},
+ {
+   "id": 23,
+   "name": "Túnica Corta",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Túnica corta elasticada",
+   "imgs": [
+      "fotos/Polera_1.1.1.png",
+      "fotos/Polera_1.2.1.png"
+   ]
+},
+ {
+   "id": 24,
+   "name": "Top Halter",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 18000,
+   "desc": "Top Halter con amarre en el cuello y espalda libre",
+   "imgs": [
+      "fotos/Top_A_1.1.1.png",
+      "fotos/Top_A_1.1.2.png"
+   ]
+},
+ {
+   "id": 25,
+   "name": "Top Halter",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 18000,
+   "desc": "Top Halter con amarre en el cuello y espalda libre",
+   "imgs": [
+      "fotos/Top_A_2.1.1.png",
+      "fotos/Top_A_2.1.2.png"
+   ]
+},
+ {
+   "id": 26,
+   "name": "Top Halter",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 18000,
+   "desc": "Top Halter con amarre en el cuello y espalda libre",
+   "imgs": [
+      "fotos/Top_A_3.1.1.png",
+      "fotos/Top_A_3.1.2.png"
+   ]
+},
+ {
+   "id": 27,
+   "name": "Top Halter",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 18000,
+   "desc": "Top Halter con amarre en el cuello y espalda libre",
+   "imgs": [
+      "fotos/Top_A_4.1.1.png",
+      "fotos/Top_A_4.2.1.png"
+   ]
+},
+ {
+   "id": 28,
+   "name": "Top Halter",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 18000,
+   "desc": "Top Halter con amarre en el cuello y espalda libre",
+   "imgs": [
+      "fotos/Top_A_5.1.1.png",
+      "fotos/Top_A_5.2.1.png"
+   ]
+},
+ {
+   "id": 29,
+   "name": "Blusa Floral",
+   "cat": "Top",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Blusa Floral con tiras",
+   "imgs": [
+      "fotos/Top_Tiras_M_1.1.1.png",
+      "fotos/Top_Tiras_M_1.2.1.png"
+   ]
+},
+ {
+   "id": 30,
+   "name": "Vestido con detalles Dorados",
+   "cat": "Vestidos",
+   "tallas": ["L"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido indio con detalles dorados",
+   "imgs": [
+      "fotos/Vestido_Dorado_L_1.1.1.png",
+      "fotos/Vestido_Dorado_L_1.2.1.png"
+   ]
+},
+ {
+   "id": 31,
+   "name": "Vestido con detalles Dorados",
+   "cat": "Vestidos",
+   "tallas": ["L"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido indio con detalles dorados",
+   "imgs": [
+      "fotos/Vestido_Dorado_L_2.1.1.png",
+      "fotos/Vestido_Dorado_L_2.2.1.png"
+   ]
+},
+ {
+   "id": 32,
+   "name": "Vestido con detalles Dorados",
+   "cat": "Vestidos",
+   "tallas": ["L"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido indio con detalles dorados",
+   "imgs": [
+      "fotos/Vestido_Dorado_L_5.1.1.png",
+      "fotos/Vestido_Dorado_L_5.2.1.png"
+   ]
+},
+ {
+   "id": 33,
+   "name": "Vestido con detalles Dorados",
+   "cat": "Vestidos",
+   "tallas": ["L"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido indio con detalles dorados",
+   "imgs": [
+      "fotos/Vestido_Dorado_L_6.1.1.png",
+      "fotos/Vestido_Dorado_L_6.2.1.png"
+   ]
+},
+ {
+   "id": 34,
+   "name": "Vestido con detalles Dorados",
+   "cat": "Vestidos",
+   "tallas": ["M"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido indio con detalles dorados",
+   "imgs": [
+      "fotos/Vestido_Dorado_M_3.1.1.png",
+      "fotos/Vestido_Dorado_M_3.2.1.png"
+   ]
+},
+ {
+   "id": 35,
+   "name": "Vestido con detalles Dorados",
+   "cat": "Vestidos",
+   "tallas": ["S"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido indio con detalles dorados",
+   "imgs": [
+      "fotos/Vestido_Dorado_S_4.1.1.png",
+      "fotos/Vestido_Dorado_S_4.2.1.png"
+   ]
+},
+ {
+   "id": 36,
+   "name": "Vestido en Tonos Azules",
+   "cat": "Vestidos",
+   "tallas": ["L"],
+   "material": "Seda",
+   "precio": 20000,
+   "desc": "Vestido azul con tiras ajustables",
+   "imgs": [
+      "fotos/Vestido_L_1.1.png",
+      "fotos/Vestido_L_2.1.png"
+   ]
+},
+ {
+   "id": 37,
+   "name": "Vestido Cruzado Reversible",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 30000,
+   "desc": "Vestido cruzado ajustable, reversible",
+   "imgs": [
+      "fotos/Vestido_Rev_1.1.1.png",
+      "fotos/Vestido_Rev_1.2.1.png",
+      "fotos/Vestido_Rev_1.3.1.png",
+      "fotos/Vestido_Rev_1.4.1.png"
+   ]
+},
+ {
+   "id": 38,
+   "name": "Vestido Strapless",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 18000,
+   "desc": "Vestido strapless",
+   "imgs": [
+      "fotos/Vestido_S_1.1.png",
+      "fotos/Vestido_S_2.1.png"
+   ]
+},
+ {
+   "id": 39,
+   "name": "Vestido Strapless Top Fruncido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Vestido Strapless con Top Fruncido y tira de amarre en el cuello",
+   "imgs": [
+      "fotos/Vestido_Tira_1.1.1.png",
+      "fotos/Vestido_Tira_1.2.1.png"
+   ]
+},
+ {
+   "id": 40,
+   "name": "Vestido Strapless Top Fruncido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Vestido Strapless con Top Fruncido y tira de amarre en el cuello",
+   "imgs": [
+      "fotos/Vestido_Tira_2.1.1.png",
+      "fotos/Vestido_Tira_2.2.1.png"
+   ]
+},
+ {
+   "id": 41,
+   "name": "Vestido Strapless Top Fruncido",
+   "cat": "Vestidos",
+   "tallas": ["Única"],
+   "material": "Seda",
+   "precio": 25000,
+   "desc": "Vestido Strapless con Top Fruncido y tira de amarre en el cuello",
+   "imgs": [
+      "fotos/Vestido_Tira_3.1.1.png",
+      "fotos/Vestido_Tira_3.2.1.png"
+   ]
+}
 ];
 // ─── FIN CONFIGURACIÓN ────────────────────────────────────
 </script>
