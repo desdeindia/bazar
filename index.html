@@ -431,7 +431,7 @@ const PRODUCTOS = [
    "id": 1,
    "name": "Blusa",
    "cat": "Top",
-   "talla": ["M"],
+   "tallas": ["M"],
    "material": "Seda",
    "precio": 18000,
    "desc": "Blusa Floral",
@@ -444,7 +444,7 @@ const PRODUCTOS = [
    "id": 2,
    "name": "Blusa",
    "cat": "Top",
-   "talla": ["M"],
+   "tallas": ["M"],
    "material": "Seda",
    "precio": 18000,
    "desc": "Blusa Floral",
@@ -457,7 +457,7 @@ const PRODUCTOS = [
    "id": 3,
    "name": "Blusa",
    "cat": "Top",
-   "talla": ["M"],
+   "tallas": ["M"],
    "material": "Seda",
    "precio": 18000,
    "desc": "Blusa Floral",
@@ -597,7 +597,7 @@ document.title = NOMBRE_TIENDA + " · Catálogo";
 
 // ── Detectar categorías y tallas únicas ──
 const cats = [...new Set(PRODUCTOS.map(p => p.cat))];
-const tallas = ["XS","S","M","L","XL","XXL"].filter(t => PRODUCTOS.some(p => p.tallas.includes(t)));
+const tallas = ["XS","S","M","L","XL","XXL","Única"].filter(t => PRODUCTOS.some(p => p.tallas.includes(t)));
 
 const filterGroups = document.querySelectorAll(".filter-group");
 cats.forEach(c => {
